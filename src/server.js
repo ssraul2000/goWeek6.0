@@ -5,8 +5,8 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
-const Server = require("http").Server(app);
-const io = require("socket.io")(Server);
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 
 io.on("connection", socket => {
   socket.on("connectionRoom", box => {
@@ -29,4 +29,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require("./routes"));
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
-Server.listen();
+server.listen(process.env.PORT || 3333);
